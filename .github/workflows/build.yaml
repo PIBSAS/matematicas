@@ -29,6 +29,43 @@ jobs:
 
       - name: Convert TEX to HTML
         run: |
+          mkdir -p html/css
+          cat > html/css/style.css <<'EOF'
+          body {
+          font-family: "Helvetica Neue", Arial, sans-serif;
+          line-height: 1.6;
+          max-width: 36em;
+          margin: 2em auto;
+          padding: 0 1em;
+          color: #1a1a1a;
+          background-color: #fdfdfd;
+          }
+          header, footer {
+          text-align: center;
+          margin: 2em 0;
+          }
+          h1, h2, h3 {
+          color: #222;
+          }
+          ol, ul {
+          margin: 1em 0;
+          padding-left: 1.5em;
+          }
+          a.button {
+            display: inline-block;
+            margin: 0.5em;
+            padding: 0.4em 1em;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+          }
+          a.button {
+            background-color: #0056b3;
+          }
+          EOF
+          
           find tex -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" \) | while read IMG ; do
               OUT="html/${IMG#tex/}"
               mkdir -p "$(dirname "$OUT")"
@@ -58,8 +95,36 @@ jobs:
               /<\/body>/ { print s; }
               { print; }
             ' "$OUT" > "$OUT.tmp"
-
             mv "$OUT.tmp" "$OUT"
+
+            awk -v s="<link rel=\"stylesheet\" href=\"${REL}css/style.css\" />" ' 
+              /<\/head>/ { print s; } 
+              { print } 
+            ' "$OUT" > "$OUT.tmp" 
+            mv "$OUT.tmp" "$OUT
+
+            mapfile -t HTML_FILES < <(find html -name "*.html" | sort) 
+            for i in "${!HTML_FILES[@]}"; do 
+                FILE_NAV="${HTML_FILES[i]}" 
+                DIR_DEPTH_NAV=$(dirname "$FILE_NAV" | tr -cd '/' | wc -c) 
+                REL_NAV="" 
+                for ((j=0; j<DIR_DEPTH_NAV; j++)); do REL_NAV="../$REL_NAV"; done 
+                PREV="" 
+                NEXT="" 
+                [ $i -gt 0 ] && PREV="${HTML_FILES[i-1]}" 
+                [ $i -lt $((${#HTML_FILES[@]}-1)) ] && NEXT="${HTML_FILES[i+1]}" 
+                
+                awk -v home="${REL_NAV}index.html" -v back="$PREV" -v next="$NEXT" ' 
+                    /<\/body>/ { 
+                        print "<footer>" 
+                        print "<a href=\"" home "\" class=\"button\">Home</a>" 
+                        if(back!="") print "<a href=\"" back "\" class=\"button\">Back</a>" 
+                        if(next!="") print "<a href=\"" next "\" class=\"button\">Next</a>" 
+                        print "</footer>" 
+                    } 
+                    { print } 
+                ' "$FILE_NAV" > "$FILE_NAV.tmp" 
+                mv "$FILE_NAV.tmp" "$FILE_NAV"
           done
 
       - name: Generate list.json
