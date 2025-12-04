@@ -32,7 +32,6 @@ jobs:
           mkdir -p html/css
           cp -r css/* html/css/
           
-          
           find tex -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" \) | while read IMG ; do
               OUT="html/${IMG#tex/}"
               mkdir -p "$(dirname "$OUT")"
@@ -66,7 +65,7 @@ jobs:
               /<\/head>/ { print s; } 
               { print } 
             ' "$OUT" > "$OUT.tmp" 
-            mv "$OUT.tmp" "$OUT
+            mv "$OUT.tmp" "$OUT"
 
             mapfile -t HTML_FILES < <(find html -name "*.html" | sort) 
             for i in "${!HTML_FILES[@]}"; do 
