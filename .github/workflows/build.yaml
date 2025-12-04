@@ -19,13 +19,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc nodejs npm
-
-      - name: Install MathJax
-        run: |
-          npm install mathjax-full
-          mkdir -p js/mathjax
-          cp -r node_modules/mathjax-full/es5 js/mathjax/
+          sudo apt-get install -y pandoc
 
       - name: Clean HTML output folder
         run: |
@@ -34,19 +28,32 @@ jobs:
 
       - name: Convert TEX to HTML
         run: |
+          find tex -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" \) | while read IMG ; do
+              OUT="html/${IMG#tex/}"
+              mkdir -p "$(dirname "$OUT")"
+              cp "$IMG" "$OUT"
+            done
+            
           find tex -name "*.tex" | while read FILE ; do
             OUT="html/${FILE#tex/}"
             OUT="${OUT%.tex}.html"
-
             mkdir -p "$(dirname "$OUT")"
+
+            
 
              # Calcular nivel relativo
             DIR_DEPTH=$(dirname "$OUT" | tr -cd '/' | wc -c)
             REL=""
             for ((i=0; i<DIR_DEPTH; i++)); do REL="../$REL"; done
             
-            pandoc "$FILE" -o "$OUT" \
-              --mathjax="${REL}js/mathjax/es5/tex-mml-chtml.js"
+            pandoc "$FILE" -o "$OUT"
+
+            awk -v s="<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js\"></script>" '
+              /<\/head>/ { print s; }
+              { print; }
+            ' "$OUT" > "$OUT.tmp"
+            mv "$OUT.tmp" "$OUT"
+
 
             awk -v s="<script src=\"${REL}js/script.js\"></script>" '
               /<\/body>/ { print s; }
@@ -58,7 +65,7 @@ jobs:
 
       - name: Generate list.json
         run: |
-          echo "[" > list.json
+          echo "[" > html/list.json
           FIRST=1
           find html -name "*.html" | while read FILE ; do
             PRETTY=$(echo "$FILE" | sed 's/html\///; s/\.html//; s|/| - |g')
@@ -66,9 +73,9 @@ jobs:
             if [ $FIRST -eq 1 ]; then
               FIRST=0
             else
-              echo "," >> list.json
+              echo "," >> html/list.json
             fi
-            echo "$ENTRY" >> list.json
+            echo "$ENTRY" >> html/list.json
           done
           echo "]" >> list.json
 
@@ -83,7 +90,7 @@ jobs:
       - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v4.0.0
         with:
-          path: .
+          path: html
   
   deploy:
     needs: build
