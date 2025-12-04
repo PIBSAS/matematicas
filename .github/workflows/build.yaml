@@ -51,7 +51,7 @@ jobs:
             mv "$OUT.tmp" "$OUT"
 
 
-            awk -v s="<script src=\"${REL}js/script.js\"></script>" '
+            awk -v s="<script src=\"../${REL}js/script.js\"></script>" '
               /<\/body>/ { print s; }
               { print; }
             ' "$OUT" > "$OUT.tmp"
