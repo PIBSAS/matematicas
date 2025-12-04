@@ -65,7 +65,7 @@ jobs:
 
       - name: Generate list.json
         run: |
-          echo "[" > html/list.json
+          echo "[" > list.json
           FIRST=1
           find html -name "*.html" | while read FILE ; do
             PRETTY=$(echo "$FILE" | sed 's/html\///; s/\.html//; s|/| - |g')
@@ -73,9 +73,9 @@ jobs:
             if [ $FIRST -eq 1 ]; then
               FIRST=0
             else
-              echo "," >> html/list.json
+              echo "," >> list.json
             fi
-            echo "$ENTRY" >> html/list.json
+            echo "$ENTRY" >> list.json
           done
           echo "]" >> list.json
 
