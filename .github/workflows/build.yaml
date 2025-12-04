@@ -23,6 +23,9 @@ jobs:
         run: |
           rm -rf html
           mkdir html
+          mkdir -p html/js
+          cp -r js/* html/js/
+
 
       - name: Convert TEX to HTML
         run: |
@@ -51,7 +54,7 @@ jobs:
             mv "$OUT.tmp" "$OUT"
 
 
-            awk -v s="<script src=\"../${REL}js/script.js\"></script>" '
+            awk -v s="<script src=\"${REL}js/script.js\"></script>" '
               /<\/body>/ { print s; }
               { print; }
             ' "$OUT" > "$OUT.tmp"
