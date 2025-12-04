@@ -30,40 +30,8 @@ jobs:
       - name: Convert TEX to HTML
         run: |
           mkdir -p html/css
-          cat > html/css/style.css <<-'EOF'
-          body {
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 36em;
-            margin: 2em auto;
-            padding: 0 1em;
-            color: #1a1a1a;
-            background-color: #fdfdfd;
-          }
-          header, footer {
-            text-align: center;
-            margin: 2em 0;
-          }
-          h1, h2, h3 {
-            color: #222;
-          }
-          ol, ul {
-            margin: 1em 0;
-            padding-left: 1.5em;
-          }
-          a.button {
-            display: inline-block;
-            margin: 0.5em;
-            padding: 0.4em 1em;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 0.9em;
-          }
-          a.button:hover {
-            background-color: #0056b3;
-          }EOF
+          cp -r css/* html/css/
+          
           
           find tex -type f \( -iname "*.png" -o -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.gif" \) | while read IMG ; do
               OUT="html/${IMG#tex/}"
@@ -76,7 +44,6 @@ jobs:
             OUT="${OUT%.tex}.html"
             mkdir -p "$(dirname "$OUT")"
 
-            # Calcular nivel relativo
             DIR_DEPTH=$(dirname "$OUT" | tr -cd '/' | wc -c)
             REL=""
             for ((i=0; i<DIR_DEPTH; i++)); do REL="../$REL"; done
@@ -88,7 +55,6 @@ jobs:
               { print; }
             ' "$OUT" > "$OUT.tmp"
             mv "$OUT.tmp" "$OUT"
-
 
             awk -v s="<script src=\"${REL}js/script.js\"></script>" '
               /<\/body>/ { print s; }
