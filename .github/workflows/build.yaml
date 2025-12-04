@@ -36,7 +36,7 @@ jobs:
               OUT="html/${IMG#tex/}"
               mkdir -p "$(dirname "$OUT")"
               cp "$IMG" "$OUT"
-            done
+          done
             
           find tex -name "*.tex" | while read FILE ; do
             OUT="html/${FILE#tex/}"
@@ -67,32 +67,30 @@ jobs:
             ' "$OUT" > "$OUT.tmp" 
             mv "$OUT.tmp" "$OUT"
 
-                mapfile -t HTML_FILES < <(find html -name "*.html" | sort) 
-                for i in "${!HTML_FILES[@]}"; do 
-                    FILE_NAV="${HTML_FILES[i]}" 
-                    DIR_DEPTH_NAV=$(dirname "$FILE_NAV" | tr -cd '/' | wc -c) 
-                    REL_NAV="" 
-                    for ((j=0; j<DIR_DEPTH_NAV; j++)); do REL_NAV="../$REL_NAV"; done 
-                    PREV="" 
-                    NEXT="" 
-                    [ $i -gt 0 ] && PREV="${HTML_FILES[i-1]}" 
-                    [ $i -lt $((${#HTML_FILES[@]}-1)) ] && NEXT="${HTML_FILES[i+1]}" 
-                    
-                    awk -v home="${REL_NAV}index.html" -v back="$PREV" -v next="$NEXT" ' 
-                        /<\/body>/ { 
-                            print "<footer>" 
-                            print "<a href=\"" home "\" class=\"button\">Home</a>" 
-                            if(back!="") print "<a href=\"" back "\" class=\"button\">Back</a>" 
-                            if(next!="") print "<a href=\"" next "\" class=\"button\">Next</a>" 
-                            print "</footer>" 
-                        } 
-                        { print } 
-                    ' "$FILE_NAV" > "$FILE_NAV.tmp" 
-                    mv "$FILE_NAV.tmp" "$FILE_NAV"
-                done  # ← cierra el for
-            
-            done  # ← ESTE FALTABA, cierra el while TEX
-
+            mapfile -t HTML_FILES < <(find html -name "*.html" | sort) 
+            for i in "${!HTML_FILES[@]}"; do 
+                FILE_NAV="${HTML_FILES[i]}" 
+                DIR_DEPTH_NAV=$(dirname "$FILE_NAV" | tr -cd '/' | wc -c) 
+                REL_NAV="" 
+                for ((j=0; j<DIR_DEPTH_NAV; j++)); do REL_NAV="../$REL_NAV"; done
+                PREV="" 
+                NEXT_FILE="" 
+                [ $i -gt 0 ] && PREV="${HTML_FILES[i-1]}" 
+                [ $i -lt $((${#HTML_FILES[@]}-1)) ] && NEXT_FILE="${HTML_FILES[i+1]}" 
+                
+                awk -v home="${REL_NAV}index.html" -v back="$PREV" -v next_file="$NEXT_FILE" ' 
+                    /<\/body>/ { 
+                        print "<footer>" 
+                        print "<a href=\"" home "\" class=\"button\">Home</a>" 
+                        if(back!="") print "<a href=\"" back "\" class=\"button\">Back</a>" 
+                        if(next_file!="") print "<a href=\"" next_file "\" class=\"button\">Next</a>" 
+                        print "</footer>" 
+                    } 
+                    { print } 
+                ' "$FILE_NAV" > "$FILE_NAV.tmp" 
+                mv "$FILE_NAV.tmp" "$FILE_NAV"
+            done
+          done
 
       - name: Generate list.json
         run: |
