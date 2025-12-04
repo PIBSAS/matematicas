@@ -16,11 +16,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           persist-credentials: true
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pandoc
-
+      - name: Setup pandoc
+        uses: nikeee/setup-pandoc@master
+        
       - name: Clean HTML output folder
         run: |
           rm -rf html
