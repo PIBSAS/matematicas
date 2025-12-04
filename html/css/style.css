@@ -1,24 +1,26 @@
-/* ==== ESTILOS DEL INDEX ==== */
 .index-body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
 }
 
-.index-list a {
-  display: block;
-  padding: 10px 14px;
-  background: #f0f0f0;
-  margin: 7px 0;
-  border-radius: 6px;
-  text-decoration: none;
-  color: #000;
-  transition: background 0.2s;
+.index-title {
+    text-align: center;
 }
 
-.index-list a:hover {
-  background: #dedede;
+.html-container a {
+    display: block;
+    padding: 10px 14px;
+    background: #007bff;
+    margin: 7px 0;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #000;
+}
+
+.html-container a:hover {
+    background: #0056b3;
 }
 
 body {
