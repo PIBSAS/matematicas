@@ -30,7 +30,7 @@ jobs:
       - name: Convert TEX to HTML
         run: |
           mkdir -p html/css
-          cat > html/css/style.css <<-EOF
+          cat > html/css/style.css <<-'EOF'
           body {
             font-family: "Helvetica Neue", Arial, sans-serif;
             line-height: 1.6;
