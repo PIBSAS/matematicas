@@ -81,12 +81,12 @@ jobs:
             [ $i -gt 0 ] && PREV="${REL}${HTML_FILES[i-1]#html/}"
             [ $i -lt $((${#HTML_FILES[@]}-1)) ] && NEXT="${REL}${HTML_FILES[i+1]#html/}"
 
-            awk -v home="${REL}index.html" -v back="$PREV" -v next="$NEXT" '
+            awk -v back="$PREV" -v home="${REL}index.html" -v next_file="$NEXT" '
               /<\/body>/ {
                   print "<footer class=\"nav-footer\">"
-                  print "<a class=\"nav-btn\" href=\"" home "\">🏠 Home</a>"
                   if(back!="") print "<a class=\"nav-btn\" href=\"" back "\">⬅ Back</a>"
-                  if(next!="") print "<a class=\"nav-btn\" href=\"" next "\">Next ➡</a>"
+                  print "<a class=\"nav-btn\" href=\"" home "\">Home</a>"
+                  if(next_file!="") print "<a class=\"nav-btn\" href=\"" next_file "\">Next ➡</a>"
                   print "</footer>"
               }
               { print }
