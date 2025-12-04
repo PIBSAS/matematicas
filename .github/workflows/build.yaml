@@ -1,0 +1,80 @@
+name: Convert TEX to HTML and Build Index
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6.0.1
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc nodejs npm
+
+      - name: Install MathJax
+        run: |
+          npm install mathjax-full
+          mkdir -p js/mathjax
+          cp -r node_modules/mathjax-full/es5 js/mathjax/
+
+      - name: Clean HTML output folder
+        run: |
+          rm -rf html
+          mkdir html
+
+      - name: Convert TEX to HTML
+        run: |
+          find tex -name "*.tex" | while read FILE ; do
+            OUT="html/${FILE#tex/}"
+            OUT="${OUT%.tex}.html"
+
+            mkdir -p "$(dirname "$OUT")"
+
+            pandoc "$FILE" -o "$OUT" \
+            --mathjax
+
+            DIR_DEPTH=$(dirname "$OUT" | tr -cd '/' | wc -c)
+            REL=""
+            for ((i=0; i<DIR_DEPTH; i++)); do REL="../$REL"; done
+
+            sed -i "s|https://cdn.jsdelivr.net/npm/mathjax@.*|${REL}js/mathjax/es5/tex-mml-chtml.js|" "$OUT"
+            sed -i "s|__MATHJAX_PATH__|${REL}js/mathjax/es5|" "$OUT"
+
+            awk -v s="<script src=\"${REL}js/script.js\"></script>" '
+              /<\/body>/ { print s; }
+              { print; }
+            ' "$OUT" > "$OUT.tmp"
+
+            mv "$OUT.tmp" "$OUT"
+          done
+
+      - name: Generate list.json
+        run: |
+          echo "[" > list.json
+          FIRST=1
+          find html -name "*.html" | while read FILE ; do
+            PRETTY=$(echo "$FILE" | sed 's/html\///; s/\.html//; s|/| - |g')
+            ENTRY="{\"file\":\"$FILE\",\"pretty\":\"$PRETTY\"}"
+            if [ $FIRST -eq 1 ]; then
+              FIRST=0
+            else
+              echo "," >> list.json
+            fi
+            echo "$ENTRY" >> list.json
+          done
+          echo "]" >> list.json
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@users.noreply.github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "Rebuild HTML from TEX"
+          git push
