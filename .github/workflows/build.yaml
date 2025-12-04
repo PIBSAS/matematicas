@@ -41,7 +41,8 @@ jobs:
             DIR_DEPTH=$(dirname "$OUT" | tr -cd '/' | wc -c)
             REL=""
             for ((i=0; i<DIR_DEPTH; i++)); do REL="../$REL"; done
-            
+
+            pandoc --version
             pandoc "$FILE" -o "$OUT" --mathjax
 
             awk -v s="<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js\"></script>" '
