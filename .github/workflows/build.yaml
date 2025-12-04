@@ -79,6 +79,11 @@ jobs:
           git add .
           git diff --cached --quiet || git commit -m "Rebuild HTML from TEX"
           git push
+
+      - name: Upload artifact for GitHub Pages
+        uses: actions/upload-pages-artifact@v4.0.0
+        with:
+          path: .
   
   deploy:
     needs: build
