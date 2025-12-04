@@ -67,7 +67,7 @@ jobs:
             mv "$OUT.tmp" "$OUT"
           done
 
-          mapfile -t HTML_FILES < <(find html -name "*.html" | sort) 
+          mapfile -t HTML_FILES < <(find html -name "*.html" | sort -V)
           for i in "${!HTML_FILES[@]}"; do
             FILE="${HTML_FILES[i]}"
 
