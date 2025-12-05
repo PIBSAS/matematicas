@@ -11,6 +11,7 @@
     padding: 0 !important;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     min-height: 100vh;
+    overflow-x: hidden !important;
 }
 
 body:not(.index-body) {
@@ -522,7 +523,7 @@ ol, ul {
 
     .sidebar {
         width: 260px;
-        left: -320px; 
+        left: calc(-100% - 40px); 
     }
     
     .sidebar-title {
@@ -583,7 +584,7 @@ ol, ul {
 @media (max-width: 480px) {
     .sidebar {
         width: 250px;
-        left: -260px;
+        left: calc(-100% - 40px);
     }
     
     .footer-content {
