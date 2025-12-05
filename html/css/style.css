@@ -9,18 +9,22 @@
     text-align: center;
 }
 
-.html-container a {
+.html-container a.nav-btn {
     display: block;
     padding: 10px 14px;
-    background: #007bff;
+    background: #007b23;
     margin: 7px 0;
     border-radius: 6px;
     text-decoration: none;
     color: #000;
 }
 
-.html-container a:hover {
+.html-container a.nav-btn:hover {
     background: #0056b3;
+}
+
+.html-container {
+    margin-top: 20px;
 }
 
 body {
@@ -31,13 +35,20 @@ body {
         padding: 0 1em;
         color: #1a1a1a;
         background-color: #fdfdfd;
+        border: 3px solid red !important;
       }
       header, footer {
         text-align: center;
         margin: 2em 0;
       }
-      h1, h2, h3 {
+      h1 {
+        text-align: center;
         color: #222;
+      }
+      h2, h3 {
+        text-align: center;
+        color: #222;
+        margin-top: 1.5em;
       }
       ol, ul {
         margin: 1em 0;
