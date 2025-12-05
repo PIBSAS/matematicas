@@ -6,32 +6,7 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     min-height: 100vh;
 }
-/*
-.index-title {
-    text-align: center;
-}
 
-.html-container a.nav-btn {
-    display: block;
-    padding: 10px 14px;
-    background: #007b23;
-    margin: 7px 0;
-    border-radius: 6px;
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
-
-.html-container a.nav-btn:hover {
-    background: #0056b3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.html-container {
-    margin-top: 20px;
-}
-*/
 body {
         font-family: "Helvetica Neue", Arial, sans-serif;
         line-height: 1.6;
@@ -103,8 +78,6 @@ ol, ul {
     }
 }
 
-/* ===== ESTILOS ESPECÍFICOS PARA INDEX CON SIDEBAR ===== */
-
 .container {
     display: flex;
     gap: 30px;
@@ -116,7 +89,7 @@ ol, ul {
 
 .sidebar {
     flex: 0 0 280px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /*o white*/
+    background: white;/*linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /*o white*/
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -157,7 +130,7 @@ ol, ul {
     align-items: center;
     gap: 12px;
     padding: 12px 15px;
-    background: white; /* o ##f8f9fa */
+    background: #f8f9fa;/*white; /* o ##f8f9fa */
     border-radius: 8px;
     text-decoration: none;
     color: #333;
