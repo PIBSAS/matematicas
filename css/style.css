@@ -38,7 +38,7 @@ body {
         padding: 0 1em;
         color: #1a1a1a;
         background-color: #fdfdfd;
-        border: 3px solid red !important;
+        /* border: 3px solid red !important; Linea comentada es solo para ver el tamaño real de la pagina*/
       }
 
 header, footer {
@@ -47,12 +47,12 @@ header, footer {
 }
 
 h1 {
-    text-align: center;
+    text-align: left;
     color: #222;
 }
 
 h2, h3 {
-    text-align: center;
+    text-align: left;
     color: #222;
     margin-top: 1.5em;
 }
