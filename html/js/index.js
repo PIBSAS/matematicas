@@ -69,11 +69,6 @@ files.forEach(f => {
       const h = document.createElement('h2');
       h.textContent = nombreFormateado + ":";
       container.appendChild(h);
-      // Solo agregar si no existe ya
-      if (!currentLevels[0] || currentLevels[0]) {
-          container.appendChild(h);
-          currentLevels = currentLevels.slice(0, 1);
-      }
   } else {
       // agregar títulos según la jerarquía de carpetas
       parts.forEach((level, idx) => {
@@ -81,7 +76,7 @@ files.forEach(f => {
           // determinar el tipo de título h2, h3, etc.
           const hTag = idx === 0 ? 'h2' : 'h3';
           const h = document.createElement(hTag);
-          h.textContent = level.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          h.textContent = level.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ":";
           container.appendChild(h);
           currentLevels[idx] = level;
           // limpiar niveles más profundos si cambiaron
@@ -97,9 +92,4 @@ files.forEach(f => {
   btn.className = 'nav-btn';
   container.appendChild(btn);
 });
-
 });
-
-
-
-
