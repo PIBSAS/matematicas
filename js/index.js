@@ -1,17 +1,3 @@
-///fetch("list.json")
-   // .then(r => r.json())
-    //.then(data => {
-        //const cont = document.querySelector(".html-container");
-
-       // data.forEach(item => {
-          //  const a = document.createElement("a");
-        //    a.textContent = item.pretty;
-      //      a.href = item.file;
-    //        cont.appendChild(a);
-  //      });
-//    });
-
-// js/index.js
 const container = document.querySelector('.html-container');
 
 fetch('list.json')
@@ -20,20 +6,26 @@ fetch('list.json')
 let currentLevels = [];
 
  // ===== ORDENAR LOS ARCHIVOS =====
- // Opción 1: Orden alfabético simple
+ // Opción 1: Orden alfabético simple para activar descomentar la linea //
  // files.sort((a, b) => a.file.localeCompare(b.file));
- 
- // Opción 2: Orden natural (numérico y alfabético)
+ // ==== FIN OPCION 1 ===//
+   
+ // ==== OPCION 2 ===//
+ // Orden natural (numérico y alfabético)
  files.sort((a, b) => {
      return a.file.localeCompare(b.file, undefined, {
          numeric: true,
          sensitivity: 'base'
      });
  });
- 
- // Opción 3: Orden personalizado para tu estructura
+ // ==== FIN OPCION 2 ===//
+
+ // ==== OPCION 3 ===/
+ // Orden personalizado para tu estructura
  // Esta es la que necesitas basado en tu descripción
- const customOrder = (file) => {
+ // Para activar, eliminar /* */
+   /*
+   const customOrder = (file) => {
      const order = [
          'guia1', 'guia2', 'unidad5', 
          'jaimito', 'pruebaparaandroid'
@@ -63,7 +55,9 @@ let currentLevels = [];
          sensitivity: 'base'
      });
  });
-
+*/
+// ==== FIN OPCION 3 ===//
+   
 files.forEach(f => {
   // separar jerarquía de carpetas y archivo
   const parts = f.file.replace('html/', '').replace('.html', '').split('/');
@@ -92,4 +86,5 @@ files.forEach(f => {
 });
 
 });
+
 
