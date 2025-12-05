@@ -7,7 +7,7 @@
     min-height: 100vh;
 }
 
-body {
+body:not(.index-body) {
         font-family: "Helvetica Neue", Arial, sans-serif;
         line-height: 1.6;
         max-width: 36em;
@@ -378,16 +378,18 @@ ol, ul {
     z-index: 999;
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .menu-overlay.active {
     opacity: 1;
+    pointer-events: auto;
 }
 
 /* ===== RESPONSIVE PARA INDEX ===== */
 @media (max-width: 1024px) {
     .menu-toggle {
-    display: none;
+    display: flex;
 }
     
     .container {
@@ -425,10 +427,12 @@ ol, ul {
     
     .menu-overlay {
         display: block;
+        pointer-events: none;
     }
     
     .menu-overlay.active {
         display: block;
+        pointer-events: auto;
     }
     
     .main-content {
