@@ -590,6 +590,12 @@ ol, ul {
         margin-bottom: 10px;
     }
 
+    .footer-logo {
+        pointer-events: auto !important;
+        position: relative;
+        z-index: 100;
+    }
+
     .footer-logo span {
         font-size: 0.8em;
     }
@@ -603,10 +609,31 @@ ol, ul {
     .footer-content {
         flex-direction: column !important;
         gap: 15px;
+        align-item: center;
     }
     
     .footer-left, .footer-right, .footer-center {
         width: 100%;
         max-width: none;
+        display: flex;
+        justify-content: center;
     }
+}
+
+index-footer a {
+    cursor: pointer;
+    pointer-events: auto;
+    position: relative;
+    z-index: 50;
+}
+
+/* Evitar que otros elementos interfieran */
+.footer-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Debug: resaltar enlaces para probar */
+.footer-logo:active {
+    background-color: rgba(0, 123, 35, 0.5) !important;
 }
