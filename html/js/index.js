@@ -63,19 +63,32 @@ files.forEach(f => {
   const parts = f.file.replace('html/', '').replace('.html', '').split('/');
   const capitulo = parts.pop();  // último elemento siempre es el botón
 
-  // agregar títulos según la jerarquía de carpetas
-  parts.forEach((level, idx) => {
-    if (currentLevels[idx] !== level) {
-      // determinar el tipo de título h2, h3, etc.
-      const hTag = idx === 0 ? 'h2' : 'h3';
-      const h = document.createElement(hTag);
-      h.textContent = level.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      container.appendChild(h);
-      currentLevels[idx] = level;
-      // limpiar niveles más profundos si cambiaron
-      currentLevels = currentLevels.slice(0, idx + 1);
-    }
-  });
+  // Si parts está vacío, es un archivo raíz
+  if (parts.length === 0) {
+      // Crear un h2 especial para archivos raíz
+      const h = document.createElement('h2');
+      h.textContent = "Archivos Directos";
+      // Solo agregar si no existe ya
+      if (!currentLevels[0] || currentLevels[0] !== "Archivos Directos") {
+          container.appendChild(h);
+          currentLevels[0] = "Archivos Directos";
+          currentLevels = currentLevels.slice(0, 1);
+      }
+  } else {
+      // agregar títulos según la jerarquía de carpetas
+      parts.forEach((level, idx) => {
+        if (currentLevels[idx] !== level) {
+          // determinar el tipo de título h2, h3, etc.
+          const hTag = idx === 0 ? 'h2' : 'h3';
+          const h = document.createElement(hTag);
+          h.textContent = level.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+          container.appendChild(h);
+          currentLevels[idx] = level;
+          // limpiar niveles más profundos si cambiaron
+          currentLevels = currentLevels.slice(0, idx + 1);
+        }
+      });
+  }
 
   // crear el botón
   const btn = document.createElement('a');
@@ -86,5 +99,6 @@ files.forEach(f => {
 });
 
 });
+
 
 
