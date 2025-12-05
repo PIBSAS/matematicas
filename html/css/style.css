@@ -336,6 +336,8 @@ ol, ul {
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu-toggle:hover {
@@ -357,7 +359,6 @@ ol, ul {
     font-size: 1.2em;
     cursor: pointer;
     z-index: 1002;
-    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -387,8 +388,6 @@ ol, ul {
 @media (max-width: 1024px) {
     .menu-toggle {
         display: flex;
-        align-items: center;
-        justify-content: center;
     }
     
     .container {
@@ -420,16 +419,16 @@ ol, ul {
         left: 0;
     }
     
+    .sidebar.active .close-menu {
+        display: flex;
+    }
+    
     .menu-overlay {
         display: block;
     }
     
     .menu-overlay.active {
         display: block;
-    }
-    
-    .close-menu {
-        display: none;
     }
     
     .main-content {
@@ -495,9 +494,8 @@ ol, ul {
     
     .footer-center {
         flex: 2;
-        order: -1; 
         min-width: 180px;
-        margin-bottom: 15px;
+        margin-bottom: 0;
         
     }
 }
@@ -588,7 +586,7 @@ ol, ul {
     
     .footer-center {
         min-width: 150px;
-        order: -1;
+        order: 0;
         margin-bottom: 10px;
     }
 
