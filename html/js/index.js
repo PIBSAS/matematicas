@@ -19,6 +19,50 @@ fetch('list.json')
 .then(files => {
 let currentLevels = [];
 
+ // ===== ORDENAR LOS ARCHIVOS =====
+ // Opción 1: Orden alfabético simple
+ // files.sort((a, b) => a.file.localeCompare(b.file));
+ 
+ // Opción 2: Orden natural (numérico y alfabético)
+ files.sort((a, b) => {
+     return a.file.localeCompare(b.file, undefined, {
+         numeric: true,
+         sensitivity: 'base'
+     });
+ });
+ 
+ // Opción 3: Orden personalizado para tu estructura
+ // Esta es la que necesitas basado en tu descripción
+ const customOrder = (file) => {
+     const order = [
+         'guia1', 'guia2', 'unidad5', 
+         'jaimito', 'pruebaparaandroid'
+     ];
+     const lowerFile = file.toLowerCase();
+     
+     for (let i = 0; i < order.length; i++) {
+         if (lowerFile.includes(order[i])) {
+             return i;
+         }
+     }
+     return order.length; // los demás al final
+ };
+ 
+ // Aplicar orden personalizado
+ files.sort((a, b) => {
+     const orderA = customOrder(a.file);
+     const orderB = customOrder(b.file);
+     
+     if (orderA !== orderB) {
+         return orderA - orderB;
+     }
+     
+     // Si mismo grupo, orden alfabético natural
+     return a.file.localeCompare(b.file, undefined, {
+         numeric: true,
+         sensitivity: 'base'
+     });
+ });
 
 files.forEach(f => {
   // separar jerarquía de carpetas y archivo
@@ -48,3 +92,4 @@ files.forEach(f => {
 });
 
 });
+
