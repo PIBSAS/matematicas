@@ -94,6 +94,7 @@ fetch('list.json')
              numeric: true,
              sensitivity: 'base'
      });
+});
 
  // ==== FIN OPCION 2 ===//
 
@@ -169,5 +170,3 @@ fetch('list.json')
       container.appendChild(btn);
     });
 });
-
-
