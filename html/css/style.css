@@ -576,7 +576,7 @@ ol, ul {
 @media (max-width: 480px) {
     .sidebar {
         width: 250px;
-        left: -300px;
+        left: -260px;
     }
     
     .footer-content {
