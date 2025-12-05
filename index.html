@@ -9,8 +9,16 @@
 </head>
 
 <body class="index-body">
+    <button class="menu-toggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="menu-overlay"></div>
+    
     <div class="container">
         <aside class="sidebar">
+            <button class="close-menu" aria-label="Cerrar menú">
+                <i class="fas fa-times"></i>
+            </button>
             <h2 class="sidebar-title"><i class="fas fa-link"></i> Enlaces de Interés</h2>
             <ul class="sidebar-links">
                 <li><a href="https://www.geogebra.org" target="_blank"><i class="fas fa-chart-line"></i> GeoGebra</a></li>
@@ -52,7 +60,7 @@
             <div class="footer-center">
                 <div class="main-logo">
                     <i class="fas fa-calculator fa-3x"></i>
-                    <p>Recursos Educativos</p>
+                    <p>Matemáicas 1</p>
                 </div>
             </div>
             
@@ -65,7 +73,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; <span id="current-year">2025</span> - Guías Matemáticas - Universidad</p>
+            <p>&copy; <span id="current-year">2023</span> - Guías Matemáticas - Universidad</p>
             <p class="footer-sub">Todos los derechos reservados</p>
         </div>
     </footer>
@@ -73,6 +81,40 @@
     <script src="html/js/index.js"></script>
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        const menuToggle = document.querySelector('.menu-toggle');
+        const closeMenu = document.querySelector('.close-menu');
+        const sidebar = document.querySelector('.sidebar');
+        const menuOverlay = document.querySelector('.menu-overlay');
+        
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Evita scroll
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        menuOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        const sidebarLinks = document.querySelectorAll('.sidebar-links a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 992) {
+                    sidebar.classList.remove('active');
+                    menuOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
     </script>
 </body>
 </html>
