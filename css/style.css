@@ -387,8 +387,11 @@ ol, ul {
 /* ===== RESPONSIVE PARA INDEX ===== */
 @media (max-width: 1024px) {
     .menu-toggle {
-        display: flex;
-    }
+    display: flex;
+    z-index: 100; /* Reduce el z-index */
+    /* O asegura que no se expanda */
+    clip-path: inset(0 0 0 0);
+}
     
     .container {
         flex-direction: column;
