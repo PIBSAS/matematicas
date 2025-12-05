@@ -16,11 +16,14 @@
     margin: 7px 0;
     border-radius: 6px;
     text-decoration: none;
-    color: #000;
+    color: white;
+    font-weight: bold;
 }
 
 .html-container a.nav-btn:hover {
     background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .html-container {
@@ -37,33 +40,63 @@ body {
         background-color: #fdfdfd;
         border: 3px solid red !important;
       }
-      header, footer {
-        text-align: center;
+
+header, footer {
+    text-align: center;
+    margin: 2em 0;
+}
+
+h1 {
+    text-align: center;
+    color: #222;
+}
+
+h2, h3 {
+    text-align: center;
+    color: #222;
+    margin-top: 1.5em;
+}
+
+ol, ul {
+    margin: 1em 0;
+    padding-left: 1.5em;
+}
+
+.nav-footer {
+    text-align: center;
+    margin: 3em 0 1em 0;
+    padding: 20px 0;
+    border-top: 2px solid #007b23;
+}
+
+.nav-footer .nav-btn {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background: #007b23;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    min-width: 120px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.nav-footer .nav-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 600px) {
+    .nav-footer {
         margin: 2em 0;
-      }
-      h1 {
-        text-align: center;
-        color: #222;
-      }
-      h2, h3 {
-        text-align: center;
-        color: #222;
-        margin-top: 1.5em;
-      }
-      ol, ul {
-        margin: 1em 0;
-        padding-left: 1.5em;
-      }
-      a.button {
-        display: inline-block;
-        margin: 0.5em;
-        padding: 0.4em 1em;
-        background-color: #007b23;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 0.9em;
-      }
-      a.button:hover {
-        background-color: #0056b3;
-      }
+    }
+    .nav-footer .nav-btn {
+        display: block;
+        margin: 10px auto;
+        width: 90%;
+        max-width: 300px;
+    }
+}
