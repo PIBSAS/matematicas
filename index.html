@@ -108,7 +108,7 @@
         const sidebarLinks = document.querySelectorAll('.sidebar-links a');
         sidebarLinks.forEach(link => {
             link.addEventListener('click', () => {
-                if (window.innerWidth <= 992) {
+                if (window.innerWidth <= 1024) {
                     sidebar.classList.remove('active');
                     menuOverlay.classList.remove('active');
                     document.body.style.overflow = '';
