@@ -404,7 +404,7 @@ ol, ul {
         height: 100vh;
         position: fixed;
         top: 0;
-        left: -320px; 
+        left: -350px; 
         z-index: 1001;
         transition: left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         overflow-y: auto;
@@ -513,7 +513,7 @@ ol, ul {
 
     .sidebar {
         width: 260px;
-        left: -280px; 
+        left: -320px; 
     }
     
     .sidebar-title {
@@ -574,7 +574,7 @@ ol, ul {
 @media (max-width: 480px) {
     .sidebar {
         width: 250px;
-        left: -270px;
+        left: -300px;
     }
     
     .footer-content {
