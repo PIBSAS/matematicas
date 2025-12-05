@@ -62,16 +62,16 @@ files.forEach(f => {
   // separar jerarquía de carpetas y archivo
   const parts = f.file.replace('html/', '').replace('.html', '').split('/');
   const capitulo = parts.pop();  // último elemento siempre es el botón
-
+  const nombreFormateado = capitulo.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
   // Si parts está vacío, es un archivo raíz
   if (parts.length === 0) {
       // Crear un h2 especial para archivos raíz
       const h = document.createElement('h2');
-      h.textContent = "Archivos Directos";
+      h.textContent = nombreFormateado + ":";
+      container.appendChild(h);
       // Solo agregar si no existe ya
-      if (!currentLevels[0] || currentLevels[0] !== "Archivos Directos") {
+      if (!currentLevels[0] || currentLevels[0]) {
           container.appendChild(h);
-          currentLevels[0] = "Archivos Directos";
           currentLevels = currentLevels.slice(0, 1);
       }
   } else {
@@ -99,6 +99,7 @@ files.forEach(f => {
 });
 
 });
+
 
 
 
