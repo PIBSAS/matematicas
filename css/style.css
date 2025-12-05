@@ -100,3 +100,248 @@ ol, ul {
         max-width: 300px;
     }
 }
+
+/* ===== ESTILOS ESPECÍFICOS PARA INDEX CON SIDEBAR ===== */
+
+.container {
+    display: flex;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Sidebar (columna izquierda) */
+.sidebar {
+    flex: 0 0 280px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border-left: 5px solid #007b23;
+    height: fit-content;
+    position: sticky;
+    top: 30px;
+}
+
+.sidebar-title {
+    color: #007b23;
+    border-bottom: 2px solid #007b23;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-links {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px 0;
+}
+
+.sidebar-links li {
+    margin-bottom: 12px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-links li:hover {
+    transform: translateX(5px);
+}
+
+.sidebar-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.sidebar-links a:hover {
+    background: #007b23;
+    color: white;
+    border-left-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0,123,35,0.2);
+}
+
+.sidebar-links i {
+    width: 20px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.sidebar-info {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    margin-top: 20px;
+}
+
+.sidebar-info h3 {
+    color: #007b23;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-info p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Contenido principal del index */
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Información adicional en contenido */
+.content-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    border-left: 4px solid #007b23;
+}
+
+.content-info p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* ===== FOOTER ESPECÍFICO PARA INDEX ===== */
+.index-footer {
+    background: linear-gradient(135deg, #2c3e50, #1a1a2e);
+    color: white;
+    padding: 40px 0 20px;
+    margin-top: 50px;
+    border-top: 5px solid #007b23;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 30px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.footer-left, .footer-right {
+    flex: 1;
+}
+
+.footer-center {
+    flex: 2;
+    text-align: center;
+}
+
+.footer-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+    padding: 15px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+}
+
+.footer-logo:hover {
+    background: rgba(0,123,35,0.3);
+    transform: translateY(-5px);
+}
+
+.footer-logo i {
+    margin-bottom: 10px;
+}
+
+.footer-logo span {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.main-logo {
+    text-align: center;
+}
+
+.main-logo i {
+    color: #007b23;
+    margin-bottom: 15px;
+}
+
+.main-logo h3 {
+    margin: 10px 0 5px;
+    font-size: 1.8em;
+}
+
+.main-logo p {
+    opacity: 0.8;
+    margin: 0;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px 0;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.footer-sub {
+    font-size: 0.8em;
+    margin-top: 5px;
+    opacity: 0.6;
+}
+
+/* ===== RESPONSIVE PARA INDEX ===== */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .sidebar {
+        flex: none;
+        width: 100%;
+        position: static;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .footer-left, .footer-right, .footer-center {
+        flex: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {   
+    .sidebar-title {
+        font-size: 1.2em;
+    }
+    
+    .main-logo i {
+        font-size: 2em;
+    }
+}
