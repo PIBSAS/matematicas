@@ -429,7 +429,7 @@ ol, ul {
     }
     
     .close-menu {
-        display: flex;
+        display: none;
     }
     
     .main-content {
