@@ -620,7 +620,7 @@ ol, ul {
     }
 }
 
-index-footer a {
+.index-footer a {
     cursor: pointer;
     pointer-events: auto;
     position: relative;
