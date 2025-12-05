@@ -609,7 +609,7 @@ ol, ul {
     .footer-content {
         flex-direction: column !important;
         gap: 15px;
-        align-item: center;
+        align-items: center;
     }
     
     .footer-left, .footer-right, .footer-center {
@@ -632,7 +632,9 @@ ol, ul {
     position: relative;
     z-index: 10;
 }
-
+.footer-logo:active {
+    background-color: rgba(0, 123, 35, 0.5) !important;
+}
 /* Debug: resaltar enlaces para probar */
 .footer-logo:active {
     background-color: rgba(0, 123, 35, 0.5) !important;
