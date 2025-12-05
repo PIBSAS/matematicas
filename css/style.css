@@ -1,10 +1,12 @@
 .index-body {
     font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
 }
-
+/*
 .index-title {
     text-align: center;
 }
@@ -29,7 +31,7 @@
 .html-container {
     margin-top: 20px;
 }
-
+*/
 body {
         font-family: "Helvetica Neue", Arial, sans-serif;
         line-height: 1.6;
@@ -107,14 +109,14 @@ ol, ul {
     display: flex;
     gap: 30px;
     max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    min-height: calc(100vh - 200px);
 }
 
-/* Sidebar (columna izquierda) */
 .sidebar {
     flex: 0 0 280px;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /*o white*/
     border-radius: 15px;
     padding: 25px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
@@ -155,7 +157,7 @@ ol, ul {
     align-items: center;
     gap: 12px;
     padding: 12px 15px;
-    background: white;
+    background: white; /* o ##f8f9fa */
     border-radius: 8px;
     text-decoration: none;
     color: #333;
@@ -199,12 +201,47 @@ ol, ul {
     margin: 0;
 }
 
-/* Contenido principal del index */
 .main-content {
     flex: 1;
     min-width: 0;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
+.main-content .index-title {
+    margin-top: 0;
+    color: #222;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.main-content .html-container a.nav-btn {
+    display: block;
+    padding: 12px 16px;
+    background: #007b23;
+    margin: 8px 0;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.main-content .html-container a.nav-btn:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.main-content .html-container {
+    margin-top: 20px;
+}
 /* Información adicional en contenido */
 .content-info {
     background: #f8f9fa;
@@ -227,7 +264,6 @@ ol, ul {
     background: linear-gradient(135deg, #2c3e50, #1a1a2e);
     color: white;
     padding: 40px 0 20px;
-    margin-top: 50px;
     border-top: 5px solid #007b23;
 }
 
@@ -316,12 +352,17 @@ ol, ul {
     .container {
         flex-direction: column;
         gap: 20px;
+        padding: 20px;
     }
     
     .sidebar {
         flex: none;
         width: 100%;
         position: static;
+    }
+
+    .main-content {
+        padding: 20px;
     }
     
     .footer-content {
@@ -343,5 +384,11 @@ ol, ul {
     
     .main-logo i {
         font-size: 2em;
+    }
+
+    .main-content .index-title {
+        font-size: 1.5em;
+        flex-direction: column;
+        gap: 10px;
     }
 }
