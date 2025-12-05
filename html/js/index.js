@@ -80,21 +80,21 @@ function formatearTextoInteligente(texto) {
 fetch('list.json')
 .then(res => res.json())
 .then(files => {
-let currentLevels = [];
-
- // ===== ORDENAR LOS ARCHIVOS =====
- // Opción 1: Orden alfabético simple para activar descomentar la linea //
- // files.sort((a, b) => a.file.localeCompare(b.file));
- // ==== FIN OPCION 1 ===//
-   
- // ==== OPCION 2 ===//
- // Orden natural (numérico y alfabético)
- files.sort((a, b) => {
-     return a.file.localeCompare(b.file, undefined, {
-         numeric: true,
-         sensitivity: 'base'
+    let currentLevels = [];
+    
+     // ===== ORDENAR LOS ARCHIVOS =====
+     // Opción 1: Orden alfabético simple para activar descomentar la linea //
+     // files.sort((a, b) => a.file.localeCompare(b.file));
+     // ==== FIN OPCION 1 ===//
+       
+     // ==== OPCION 2 ===//
+     // Orden natural (numérico y alfabético)
+     files.sort((a, b) => {
+         return a.file.localeCompare(b.file, undefined, {
+             numeric: true,
+             sensitivity: 'base'
      });
- });
+
  // ==== FIN OPCION 2 ===//
 
  // ==== OPCION 3 ===/
@@ -135,39 +135,39 @@ let currentLevels = [];
 */
 // ==== FIN OPCION 3 ===//
    
-files.forEach(f => {
-  // separar jerarquía de carpetas y archivo
-  const parts = f.file.replace('html/', '').replace('.html', '').split('/');
-  const capitulo = parts.pop();  // último elemento siempre es el botón
-  const nombreFormateado = capitulo.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  // Si parts está vacío, es un archivo raíz
-  if (parts.length === 0) {
-      // Crear un h2 especial para archivos raíz
-      const h = document.createElement('h2');
-      h.textContent = nombreFormateado + ":";
-      container.appendChild(h);
-  } else {
-      // agregar títulos según la jerarquía de carpetas
-      parts.forEach((level, idx) => {
-        if (currentLevels[idx] !== level) {
-          // determinar el tipo de título h2, h3, etc.
-          const hTag = idx === 0 ? 'h2' : 'h3';
-          const h = document.createElement(hTag);
-          h.textContent = level.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) + ":";
+    files.forEach(f => {
+      // separar jerarquía de carpetas y archivo
+      const parts = f.file.replace('html/', '').replace('.html', '').split('/');
+      const capitulo = parts.pop();  // último elemento siempre es el botón
+      
+      // Si parts está vacío, es un archivo raíz
+      if (parts.length === 0) {
+          // Crear un h2 especial para archivos raíz
+          const h = document.createElement('h2');
+          h.textContent = formatearTextoInteligente(capitulo) + ":";
           container.appendChild(h);
-          currentLevels[idx] = level;
-          // limpiar niveles más profundos si cambiaron
-          currentLevels = currentLevels.slice(0, idx + 1);
-        }
-      });
-  }
+      } else {
+          // agregar títulos según la jerarquía de carpetas
+          parts.forEach((level, idx) => {
+            if (currentLevels[idx] !== level) {
+              const hTag = idx === 0 ? 'h2' : 'h3';
+              const h = document.createElement(hTag);
+              h.textContent = formatearTextoInteligente(level) + ":";
+              container.appendChild(h);
+              currentLevels[idx] = level;
+              // limpiar niveles más profundos si cambiaron
+              currentLevels = currentLevels.slice(0, idx + 1);
+            }
+          });
+      }
+    
+      // crear el botón
+      const btn = document.createElement('a');
+      btn.href = f.file;
+      btn.textContent = formatearTextoInteligente(capitulo);
+      btn.className = 'nav-btn';
+      container.appendChild(btn);
+    });
+});
 
-  // crear el botón
-  const btn = document.createElement('a');
-  btn.href = f.file;
-  btn.textContent = capitulo.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-  btn.className = 'nav-btn';
-  container.appendChild(btn);
-});
-});
 
