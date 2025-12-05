@@ -384,7 +384,7 @@ ol, ul {
 }
 
 /* ===== RESPONSIVE PARA INDEX ===== */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
     .menu-toggle {
         display: flex;
         align-items: center;
