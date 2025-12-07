@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>matematicas</title>
-    <link rel="stylesheet" href="html/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="pdfs/static/favicon.ico">
     <link rel="manifest" href="pdfs/static/site.webmanifest">
@@ -129,6 +128,34 @@
             color: #555;
         }
         
+        .nav-footer {
+            text-align: center;
+            margin: 3em 0 1em 0;
+            padding: 20px 0;
+            border-top: 2px solid #007b23;
+        }
+        
+        .nav-footer .nav-btn {
+            display: inline-block;
+            margin: 0 10px;
+            padding: 10px 20px;
+            background: #007b23;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            min-width: 120px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-footer .nav-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        
         h2 {
             background-color: rgba(255, 255, 255, 0.8); 
             color: #333;                             
@@ -187,12 +214,6 @@
     </div>
     <footer class="nav-footer">
         <a class="nav-btn" href="index.html">Home</a>
-    </footer>
-    <footer class="index-footer">
-        <div class="footer-bottom">
-            <p>&copy; <span id="current-year">2023</span> - Matemáticas - Universidad Nacional de Moreno</p>
-            <p class="footer-sub">Todos los derechos reservados</p>
-        </div>
     </footer>
 </body>
 </html>
