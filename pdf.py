@@ -25,6 +25,19 @@ def buscar_pdfs_en_root(pdf_dir):
             pdfs.append((os.path.join(pdf_dir, f), "pdfs", f))
     return pdfs
 
+def buscar_archivos_extra(pdf_dir, ext_extra=None):
+    """Busca archivos extra (ej: .ggb, .zip) y devuelve lista de tuplas (nombre, ruta relativa)."""
+    if ext_extra is None:
+        ext_extra = [".ggb", ".zip", ".rar", ".7z", ".doc", ".docx", ".xlsx", ".ods", ".odt", ".txt", ".ppt", ".pptx"]
+    extra = []
+    for root, dirs, files in os.walk(pdf_dir):
+        for f in files:
+            ext = os.path.splitext(f)[1].lower()
+            if ext in ext_extra:
+                full_path = os.path.join(root, f).replace("\\", "/")
+                extra.append((f, full_path))
+    extra.sort(key=lambda x: x[0].lower())
+    return extra
 
 def sanitizar_nombre(nombre):
     """Sanitiza el nombre reemplazando guiones y guiones bajos por espacios y capitalizando."""
@@ -166,7 +179,7 @@ def extraer_miniaturas(pdfs):
             print(f"Error en {archivo}: {e}")
 
 
-def generar_html(pdfs):
+def generar_html(pdfs, extra_files):
     """Genera el index.html con las miniaturas y títulos de los PDFs."""
     folder_name = os.path.basename(os.getcwd())
 
@@ -380,7 +393,15 @@ def generar_html(pdfs):
             <p class="pdf-title">{titulo_limpio}</p>
         </div>
 """
+    html += "</div>\n"
 
+    # --- Sección de archivos extra ---
+    if extra_files:
+        html += "<h2>Otros archivos</h2>\n<ul class='archivos-extra'>\n"
+        for name, path in extra_files:
+            html += f"<li><a href='{quote(path)}' target='_blank'>{name}</a></li>\n"
+        html += "</ul>\n"
+        
     html += """
     </div>
     <footer class="nav-footer">
@@ -397,6 +418,7 @@ def generar_html(pdfs):
 # --- Ejecución ---
 
 pdf_files = buscar_pdfs_en_root(PDF_DIR)
+extra_files = buscar_archivos_extra(PDF_DIR)
 extraer_miniaturas(pdf_files)
 crear_logo_pdf()
 crear_favicon()
