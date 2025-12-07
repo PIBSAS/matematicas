@@ -28,14 +28,14 @@ def buscar_pdfs_en_root(pdf_dir):
 def buscar_archivos_extra(pdf_dir, ext_extra=None):
     """Busca archivos extra (ej: .ggb, .zip) y devuelve lista de tuplas (nombre, ruta relativa)."""
     if ext_extra is None:
-        ext_extra = [".ggb", ".zip", ".rar", ".7z", ".doc", ".docx", ".xlsx", ".ods", ".odt", ".txt", ".ppt", ".pptx"]
+        ext_extra = [".ggb", ".zip", ".rar", ".7z", ".doc", ".docx", ".xlsx", ".ods", ".odt", ".txt", ".ppt", ".pptx", ".py", ".ipynb"]
     extra = []
     for root, dirs, files in os.walk(pdf_dir):
         for f in files:
             ext = os.path.splitext(f)[1].lower()
             if ext in ext_extra:
-                full_path = os.path.join(root, f).replace("\\", "/")
-                extra.append((f, full_path))
+                rel_path = os.path.relpath(os.path.join(root, f), start=BASE_DIR).replace("\\", "/")
+                extra.append((f, real_path))
     extra.sort(key=lambda x: x[0].lower())
     return extra
 
