@@ -3,12 +3,6 @@ name: Convert TEX to HTML and Build Index, Archivos
 on:
   push:
     branches: ["main"]
-    #paths:
-     # - "tex/**"
-      #- "css/**"
-      #- "js/**"
-      #- "index.html"
-      #- "build.yaml"
   workflow_dispatch:
 
 jobs:
@@ -66,13 +60,13 @@ jobs:
             REL=""
             for ((i=0; i<DIR_DEPTH; i++)); do REL="../$REL"; done
 
-            pandoc "$FILE" -s -o "$OUT" --mathjax
+            pandoc "$FILE" -s -o "$OUT" --mathjax="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"
 
-            awk -v s="<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js\"></script>" '
-              /<\/head>/ { print s; }
-              { print; }
-            ' "$OUT" > "$OUT.tmp"
-            mv "$OUT.tmp" "$OUT"
+          # awk -v s="<script id=\"MathJax-script\" async src=\"https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js\"></script>" '
+          #    /<\/head>/ { print s; }
+           #   { print; }
+           # ' "$OUT" > "$OUT.tmp"
+            #mv "$OUT.tmp" "$OUT"
 
             awk -v s="<script src=\"${REL}js/script.js\"></script>" '
               /<\/body>/ { print s; }
