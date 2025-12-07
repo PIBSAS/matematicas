@@ -84,9 +84,9 @@ def crear_manifest():
         "theme_color": "#dc143c",
         "description": "Visualizador de PDFs con miniaturas",
         "icons": [
-            {"src": "logo.webp", "sizes": "256x256", "type": "image/webp"},
+            {"src": "pdfs/static/logo.webp", "sizes": "256x256", "type": "image/webp"},
             {
-                "src": "favicon.ico",
+                "src": "pdfs/favicon.ico",
                 "sizes": "128x128 64x64 32x32 24x24 16x16",
                 "type": "image/x-icon",
             },
@@ -99,7 +99,7 @@ def crear_manifest():
 
 def crear_service_worker(pdfs):
     """Crea el service-worker.js para caché de la PWA."""
-    urls = ["./", "logo.webp", "favicon.ico", "site.webmanifest"]
+    urls = ["./pdfs", "pdfs/static/logo.webp", "pdfs/static/favicon.ico", "pdfs/static/site.webmanifest"]
     
     for _, _, archivo in pdfs:
         base = os.path.splitext(archivo)[0]
@@ -176,7 +176,7 @@ def generar_html(pdfs):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{folder_name}</title>
-    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="pdfs/static/favicon.ico">
     <link rel="manifest" href="pdfs/static/site.webmanifest">
     <script src="pdfs/static/service-worker.js"></script>
     <style>
@@ -231,8 +231,8 @@ def generar_html(pdfs):
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             background: #fff;
             transition: transform 0.2s;
-            width: 100%;      /* llena la celda del grid */
-            max-width: 332px; /* el ancho de la miniatura */
+            width: 100%;
+            max-width: 332px;
         }}
         
         .pdf-container:hover {{
@@ -372,5 +372,3 @@ crear_favicon()
 crear_manifest()
 crear_service_worker(pdf_files)
 generar_html(pdf_files)
-
-print("✅ Sitio PWA estático generado en '/' listo para GitHub Pages.")
