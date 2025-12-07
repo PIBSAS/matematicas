@@ -337,7 +337,7 @@ def generar_html(pdfs):
     }}
   </script>
     <div id="logo">
-        <img src="logo.webp" alt="{folder_name}">
+        <img src="pdfs/static/logo.webp" alt="{folder_name}">
     </div>
     <div class="pdfs-container">
 """
