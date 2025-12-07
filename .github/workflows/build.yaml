@@ -1,14 +1,14 @@
-name: Convert TEX to HTML and Build Index
+name: Convert TEX to HTML and Build Index, Archivos 
 
 on:
   push:
     branches: ["main"]
-    paths:
-      - "tex/**"
-      - "css/**"
-      - "js/**"
-      - "index.html"
-      - "build.yaml"
+    #paths:
+     # - "tex/**"
+      #- "css/**"
+      #- "js/**"
+      #- "index.html"
+      #- "build.yaml"
   workflow_dispatch:
 
 jobs:
