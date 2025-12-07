@@ -3,6 +3,12 @@ name: Convert TEX to HTML and Build Index
 on:
   push:
     branches: ["main"]
+    paths:
+      - "tex/**"
+      - "css/**"
+      - "js/**"
+      - "index.html"
+      - "build.yaml"
   workflow_dispatch:
 
 jobs:
