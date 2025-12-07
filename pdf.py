@@ -78,7 +78,7 @@ def crear_manifest():
     manifest = {
         "name": repo,
         "short_name": repo + " App",
-        "start_url": "../archivos.html",
+        "start_url": "../../archivos.html",
         "display": "standalone",
         "background_color": "#dc143c",
         "theme_color": "#dc143c",
@@ -99,12 +99,12 @@ def crear_manifest():
 
 def crear_service_worker(pdfs):
     """Crea el service-worker.js para caché de la PWA."""
-    urls = ["./pdfs", "logo.webp", "favicon.ico", "site.webmanifest"]
+    urls = ["logo.webp", "favicon.ico", "site.webmanifest"]
     
     for _, _, archivo in pdfs:
         base = os.path.splitext(archivo)[0]
         miniatura = quote(f"{base}.webp")
-        pdf_url = quote(f"{archivo}")
+        pdf_url = quote(f"../{archivo}")
         urls.append(pdf_url)
         urls.append(miniatura)
         
@@ -355,6 +355,15 @@ def generar_html(pdfs):
 
     html += """
     </div>
+    <footer class="nav-footer">
+        <a class="nav-btn" href="index.html">Home</a>
+    </footer>
+    <footer class="index-footer">
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year">2023</span> - Matemáticas - Universidad Nacional de Moreno</p>
+            <p class="footer-sub">Todos los derechos reservados</p>
+        </div>
+    </footer>
 </body>
 </html>
 """
