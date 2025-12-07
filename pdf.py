@@ -7,22 +7,22 @@ import fitz
 from PIL import Image, ImageDraw, ImageFont
 
 BASE_DIR = os.getcwd()
-PDF_DIR = BASE_DIR
+PDF_DIR = os.path.join(BASE_DIR, "pdfs")
 ANCHO = 332
 ALTO = 443
-STATIC_DIR = os.path.join(BASE_DIR, "static")
+STATIC_DIR = os.path.join(PDF_DIR, "static")
 os.makedirs(STATIC_DIR, exist_ok=True)
 
 
 # --- Funciones ---
 
 
-def buscar_pdfs_en_root(base_dir):
+def buscar_pdfs_en_root(pdf_dir):
     """Busca PDFs en la carpeta raíz y devuelve lista de tuplas (ruta, carpeta, archivo)."""
     pdfs = []
-    for f in os.listdir(base_dir):
+    for f in os.listdir(pdf_dir):
         if f.lower().endswith(".pdf"):
-            pdfs.append((os.path.join(base_dir, f), ".", f))
+            pdfs.append((os.path.join(pdf_dir, f), "pdfs", f))
     return pdfs
 
 
@@ -78,7 +78,7 @@ def crear_manifest():
     manifest = {
         "name": repo,
         "short_name": repo + " App",
-        "start_url": "../index.html",
+        "start_url": "../archivos.html",
         "display": "standalone",
         "background_color": "#dc143c",
         "theme_color": "#dc143c",
@@ -177,8 +177,8 @@ def generar_html(pdfs):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{folder_name}</title>
     <link rel="icon" type="image/x-icon" href="static/favicon.ico">
-    <link rel="manifest" href="static/site.webmanifest">
-    <script src="static/service-worker.js"></script>
+    <link rel="manifest" href="pdfs/static/site.webmanifest">
+    <script src="pdfs/static/service-worker.js"></script>
     <style>
         html, body {{
             margin: 0;
@@ -325,7 +325,7 @@ def generar_html(pdfs):
     <script>
     if ('serviceWorker' in navigator) {{
       window.addEventListener('load', function() {{
-        navigator.serviceWorker.register("static/service-worker.js").then(function(registration) {{
+        navigator.serviceWorker.register("pdfs/static/service-worker.js").then(function(registration) {{
           console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }}, function(err) {{
           console.log('ServiceWorker registration failed: ', err);
@@ -336,7 +336,7 @@ def generar_html(pdfs):
 </head>
 <body>
     <div id="logo">
-        <img src="static/logo.webp" alt="{folder_name}">
+        <img src="pdfs/static/logo.webp" alt="{folder_name}">
     </div>
     <div class="pdfs-container">
 """
@@ -344,8 +344,8 @@ def generar_html(pdfs):
     for _, _, archivo in pdfs:
         base = os.path.splitext(archivo)[0]
         titulo_limpio = sanitizar_nombre(base)
-        ruta_miniatura = quote(f"static/{base}.webp")
-        ruta_pdf = quote(f"{archivo}")
+        ruta_miniatura = quote(f"pdfs/static/{base}.webp")
+        ruta_pdf = quote(f"pdfs/{archivo}")
         html += f"""
         <div class="pdf-container">
             <img src="{ruta_miniatura}" class="pdf-thumbnail" onclick="window.open('{ruta_pdf}', '_blank')">
@@ -358,7 +358,7 @@ def generar_html(pdfs):
 </body>
 </html>
 """
-    ruta_index = os.path.join(BASE_DIR, "index.html")
+    ruta_index = os.path.join(BASE_DIR, "archivos.html")
     with open(ruta_index, "w", encoding="utf-8") as f:
         f.write(html)
 
