@@ -84,9 +84,9 @@ def crear_manifest():
         "theme_color": "#dc143c",
         "description": "Visualizador de PDFs con miniaturas",
         "icons": [
-            {"src": "pdfs/static/logo.webp", "sizes": "256x256", "type": "image/webp"},
+            {"src": "logo.webp", "sizes": "256x256", "type": "image/webp"},
             {
-                "src": "pdfs/favicon.ico",
+                "src": "favicon.ico",
                 "sizes": "128x128 64x64 32x32 24x24 16x16",
                 "type": "image/x-icon",
             },
@@ -99,7 +99,7 @@ def crear_manifest():
 
 def crear_service_worker(pdfs):
     """Crea el service-worker.js para caché de la PWA."""
-    urls = ["./pdfs", "pdfs/static/logo.webp", "pdfs/static/favicon.ico", "pdfs/static/site.webmanifest"]
+    urls = ["./pdfs", "logo.webp", "favicon.ico", "site.webmanifest"]
     
     for _, _, archivo in pdfs:
         base = os.path.splitext(archivo)[0]
