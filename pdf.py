@@ -35,7 +35,7 @@ def buscar_archivos_extra(pdf_dir, ext_extra=None):
             ext = os.path.splitext(f)[1].lower()
             if ext in ext_extra:
                 rel_path = os.path.relpath(os.path.join(root, f), start=BASE_DIR).replace("\\", "/")
-                extra.append((f, real_path))
+                extra.append((f, rel_path))
     extra.sort(key=lambda x: x[0].lower())
     return extra
 
