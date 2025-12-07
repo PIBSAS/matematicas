@@ -24,6 +24,20 @@ jobs:
 
       - name: Setup pandoc
         uses: nikeee/setup-pandoc@master
+
+      - name: Setup Python
+        uses: actions/setup-python@v6.1.0
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf pillow
+
+      - name: Run PDF build script
+        run: |
+          python pdf.py
         
       - name: Clean HTML output folder
         run: |
