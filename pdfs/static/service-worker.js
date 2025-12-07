@@ -1,5 +1,5 @@
 const CACHE_NAME = "revistas-cache-v1";
-const urlsToCache = ['./', 'logo.webp', 'favicon.ico', 'site.webmanifest', 'IntegralDefinida.pdf', 'IntegralDefinida.webp', '014_GuiaAMI_2025_16_10.pdf', '014_GuiaAMI_2025_16_10.webp', 'Metodos%20Integracion.pdf', 'Metodos%20Integracion.webp'];
+const urlsToCache = ['./pdfs', 'pdfs/static/logo.webp', 'pdfs/static/favicon.ico', 'pdfs/static/site.webmanifest', 'IntegralDefinida.pdf', 'IntegralDefinida.webp', '014_GuiaAMI_2025_16_10.pdf', '014_GuiaAMI_2025_16_10.webp', 'Metodos%20Integracion.pdf', 'Metodos%20Integracion.webp'];
 
 self.addEventListener("install", event => {
   event.waitUntil(
